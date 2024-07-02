@@ -2,6 +2,7 @@ package com.lgcns.cloudxper.optdashbatch.batch.job;
 
 import com.lgcns.cloudxper.optdashbatch.batch.tasklet.PowerScheduleTasklet;
 import com.lgcns.cloudxper.optdashbatch.batch.tasklet.PowerScheduleValidationCheckTasklet;
+import com.lgcns.cloudxper.optdashbatch.domain.util.DateTimeGenerator;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
@@ -17,10 +18,10 @@ public class PowerSchedule {
 
     private static final String JOB_NAME = "powerScheduleJob";
     private static final String STEP_NAME = "PowerScheduleStep";
+    private static final String VALIDATION_STEP_NAME = "PowerScheduleValidationStep";
 
     @Bean
     public Job powerScheduleJob(JobRepository jobRepository, Step powerScheduleStep, Step powerScheduleValidationStep) {
-        System.out.println("powerScheduleManagementJob");
         return new JobBuilder(JOB_NAME, jobRepository)
                 .start(powerScheduleStep)
                 .next(powerScheduleValidationStep)
@@ -29,29 +30,26 @@ public class PowerSchedule {
 
     @Bean
     public Step powerScheduleStep(JobRepository jobRepository, Tasklet powerScheduleTasklet, PlatformTransactionManager transactionManager) {
-        System.out.println("powerScheduleManagementStep");
-
+//        String stepName = STEP_NAME_PREFIX + DateTimeGenerator.generateTimeStamp();
         return new StepBuilder(STEP_NAME, jobRepository)
                 .tasklet(powerScheduleTasklet, transactionManager)
                 .build();
     }
 
     @Bean
-    public Step powerScheduleValidationStep(JobRepository jobRepository, Tasklet powerScheduleTasklet, PlatformTransactionManager transactionManager) {
-        System.out.println("powerScheduleValidationStep");
-        return new StepBuilder(STEP_NAME, jobRepository)
-                .tasklet(powerScheduleTasklet, transactionManager)
+    public Step powerScheduleValidationStep(JobRepository jobRepository, Tasklet powerScheduleValidationCheckTasklet, PlatformTransactionManager transactionManager) {
+//        String stepName = VALIDATION_STEP_NAME + DateTimeGenerator.generateTimeStamp();
+        return new StepBuilder(VALIDATION_STEP_NAME, jobRepository)
+                .tasklet(powerScheduleValidationCheckTasklet, transactionManager)
                 .build();
     }
     @Bean
     public Tasklet powerScheduleTasklet() {
-        System.out.println("powerScheduleTasklet");
         return new PowerScheduleTasklet();
     }
 
     @Bean
     public Tasklet powerScheduleValidationCheckTasklet(){
-        System.out.println("powerScheduleValidationCheckTasklet");
         return new PowerScheduleValidationCheckTasklet();
     }
 }

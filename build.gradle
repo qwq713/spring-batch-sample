@@ -30,6 +30,9 @@ dependencies {
     // spring jdbc
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
+    // mariadb connector
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:3.4.0'
+
     // h2
     implementation 'com.h2database:h2'
 

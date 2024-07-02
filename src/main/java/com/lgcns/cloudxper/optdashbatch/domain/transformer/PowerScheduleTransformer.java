@@ -1,4 +1,4 @@
-package com.lgcns.cloudxper.optdashbatch.domain.optdash.transformer;
+package com.lgcns.cloudxper.optdashbatch.domain.transformer;
 
 public class PowerScheduleTransformer {
     public static void transform(){

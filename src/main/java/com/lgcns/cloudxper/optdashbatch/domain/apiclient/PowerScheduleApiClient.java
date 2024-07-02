@@ -1,4 +1,4 @@
-package com.lgcns.cloudxper.optdashbatch.domain.optdash.apiclient;
+package com.lgcns.cloudxper.optdashbatch.domain.apiclient;
 
 public class PowerScheduleApiClient {
 
