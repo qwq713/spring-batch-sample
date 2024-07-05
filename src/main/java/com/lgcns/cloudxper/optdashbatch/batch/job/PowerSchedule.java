@@ -2,7 +2,6 @@ package com.lgcns.cloudxper.optdashbatch.batch.job;
 
 import com.lgcns.cloudxper.optdashbatch.batch.tasklet.PowerScheduleTasklet;
 import com.lgcns.cloudxper.optdashbatch.batch.tasklet.PowerScheduleValidationCheckTasklet;
-import com.lgcns.cloudxper.optdashbatch.domain.util.DateTimeGenerator;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
@@ -30,7 +29,6 @@ public class PowerSchedule {
 
     @Bean
     public Step powerScheduleStep(JobRepository jobRepository, Tasklet powerScheduleTasklet, PlatformTransactionManager transactionManager) {
-//        String stepName = STEP_NAME_PREFIX + DateTimeGenerator.generateTimeStamp();
         return new StepBuilder(STEP_NAME, jobRepository)
                 .tasklet(powerScheduleTasklet, transactionManager)
                 .build();
@@ -38,7 +36,6 @@ public class PowerSchedule {
 
     @Bean
     public Step powerScheduleValidationStep(JobRepository jobRepository, Tasklet powerScheduleValidationCheckTasklet, PlatformTransactionManager transactionManager) {
-//        String stepName = VALIDATION_STEP_NAME + DateTimeGenerator.generateTimeStamp();
         return new StepBuilder(VALIDATION_STEP_NAME, jobRepository)
                 .tasklet(powerScheduleValidationCheckTasklet, transactionManager)
                 .build();
